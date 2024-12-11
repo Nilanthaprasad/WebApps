@@ -37,12 +37,22 @@ namespace RanAswanuPOS
 
         private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm(new Orders());
+           
         }
 
         private void invoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm(new Invoice());
+        }
+
+        private void fullDetailOrderWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm(new Orders());
+        }
+
+        private void fullDetailsOrderWindowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm(new OrderLessDetail());
         }
     }
 }

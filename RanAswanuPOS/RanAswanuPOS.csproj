@@ -8,9 +8,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>RanAswanuPOS</RootNamespace>
     <AssemblyName>RanAswanuPOS</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>RanAswanuPOS.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -47,9 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataConn\DatabaseConnection.cs" />
+    <Compile Include="DataConn\DatabaseUtil.cs" />
+    <Compile Include="DataConn\DataDictionary.cs" />
+    <Compile Include="EntityDao\OrderDao.cs" />
+    <Compile Include="EntityDao\OrderItemDao.cs" />
     <Compile Include="EntityDao\UserDao.cs" />
+    <Compile Include="Entity\Customer.cs" />
     <Compile Include="Entity\Order.cs" />
     <Compile Include="Entity\OrderItem.cs" />
+    <Compile Include="Entity\Product.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="Invoice.cs">
       <SubType>Form</SubType>
@@ -69,6 +79,24 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderDetails.Designer.cs">
+      <DependentUpon>OrderDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetailsDynamicCustomerRetrieval.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderDetailsDynamicCustomerRetrieval.Designer.cs">
+      <DependentUpon>OrderDetailsDynamicCustomerRetrieval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderLessDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderLessDetail.Designer.cs">
+      <DependentUpon>OrderLessDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Orders.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +114,15 @@
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OrderDetails.resx">
+      <DependentUpon>OrderDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderDetailsDynamicCustomerRetrieval.resx">
+      <DependentUpon>OrderDetailsDynamicCustomerRetrieval.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderLessDetail.resx">
+      <DependentUpon>OrderLessDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Orders.resx">
       <DependentUpon>Orders.cs</DependentUpon>
     </EmbeddedResource>
@@ -97,6 +134,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

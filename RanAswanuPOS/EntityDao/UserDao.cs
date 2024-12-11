@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RanAswanuPOS.DataConn;
 using MySql.Data.MySqlClient;
 using MySql.Data.Common;
+using RanAswanuPOS.Entity;
 
 
 namespace RanAswanuPOS.EntityDao
@@ -13,17 +14,19 @@ namespace RanAswanuPOS.EntityDao
 
     class UserDao
     {
-        private MySqlConnection dbCon;
+        private MySqlConnection dbCon = DatabaseConnection.getConnection();
         
         
         public UserDao()
         {
-            dbCon = DatabaseConnection.getConnection();
+           
         }
 
-        private List<string>[] checkCredentials()
+        public List<string>[] getUser(User user)
         {
-            string query = "SELECT * FROM tableinfo";
+            
+            String[] arguementsForSelect = { DataDictionary.USER_TABLE_COL_USERNAME, DataDictionary.USER_TABLE_COL_PASSWORD };
+            String query = DatabaseUtil.getSelectAllwithANDStatement(DataDictionary.USER_TABLE, arguementsForSelect);
 
             //Create a list to store the result
             List<string>[] list = new List<string>[3];
@@ -31,33 +34,31 @@ namespace RanAswanuPOS.EntityDao
             list[1] = new List<string>();
             list[2] = new List<string>();
 
-            //Open connection
-            dbCon.Open();
-
             
-                //Create Command
-                MySqlCommand cmd = new MySqlCommand(query, dbCon);
-                //Create a data reader and Execute the command
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+            //Create Command
+            MySqlCommand cmd = new MySqlCommand(query, dbCon);
+            cmd.Parameters.AddWithValue(DataDictionary.USER_TABLE_COL_USERNAME_PARAM, user.Username);
+            cmd.Parameters.AddWithValue(DataDictionary.USER_TABLE_COL_PASSWORD_PARAM, user.Password);
+            cmd.Prepare();
+            //Create a data reader and Execute the command
+            MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                //Read the data and store them in the list
-                while (dataReader.Read())
-                {
-                    list[0].Add(dataReader["id"] + "");
-                    list[1].Add(dataReader["username"] + "");
-                    list[2].Add(dataReader["password"] + "");
-                }
+            //Read the data and store them in the list
+            while (dataReader.Read())
+            {
+                list[0].Add(dataReader["id"].ToString());
+                list[1].Add(dataReader["username"].ToString());
+                list[2].Add(dataReader["password"].ToString());
+            }
 
-                //close Data Reader
-                dataReader.Close();
+            //close Data Reader
+            dataReader.Close();
 
             //close Connection
-            dbCon.Close();
+            //dbCon.Close();
 
                 //return list to be displayed
-                return list;
-            
-   
+            return list;  
             
         }
     }

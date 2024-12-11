@@ -25,6 +25,21 @@ namespace RanAswanuPOS.Entity
 
         public bool checkValidCredenttials()
         {
+            List<String>[] userList = daoObject.getUser(this);
+
+            if(userList != null)
+            {
+               if (userList[0].Count > 0)
+                 {
+                    return true;
+                }
+                    else
+                {
+                    return false;
+                }
+
+            }
+            return false;
 
         }
     }
